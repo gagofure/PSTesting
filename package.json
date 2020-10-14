@@ -1,0 +1,16 @@
+{
+  "name": "pstesting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webdriver.js",
+  "dependencies": {
+    "chromedriver": "^85.0.1",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
