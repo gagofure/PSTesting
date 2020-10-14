@@ -1,6 +1,5 @@
 "use strict";
 const webdriver = require("selenium-webdriver");
-const assert = require('assert');
 
 require('chromedriver');
 
