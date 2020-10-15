@@ -1,6 +1,6 @@
-# Web Automation Testing 
- 
-Task | Progress | 
+# Web Automation Testing
+
+Task | Progress |
 :--------------------------------------- | :-------------
 - Navigate to the career page | :heavy_check_mark:
   
