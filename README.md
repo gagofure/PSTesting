@@ -8,3 +8,4 @@ Task                                  | Progress |
 | Selects category as Full-Time and Location as Lagos | :heavy_check_mark:
 | Click the search button             | :heavy_check_mark:
 | Validate the search result          | :heavy_check_mark:
+
