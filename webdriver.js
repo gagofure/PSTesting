@@ -1,60 +1,62 @@
 "use strict";
 const webdriver = require("selenium-webdriver");
-
 require('chromedriver');
 
 
 var driver = new webdriver.Builder().forBrowser('chrome').build();
-
 driver.manage().window().maximize();
+
+var baseUrl = 'https://www.parallelscore.com'
+var navigateToUrl = 'https://www.parallelscore.com/Careers'
+var locationCssSector = '#location>option[value=lagos]'
+var categoryCssSector = '#category>option[value=full-time]'
+var modalCssSelector = 'div.mc-closeModal'
+var serchCssSelector = 'input[type=submit]'
 
 async function basicTest() {
 
     try {
         await driver.manage().setTimeouts({ implicit: 10000 });
 
-        // launches www.parallelscore.com to a browser (in my case chrome browser).
-        await driver.get('https://www.parallelscore.com');
+        // launches website to a browser (in my case chrome browser).
+        await driver.get(baseUrl);
 
         //Navigate to the career page
-        await driver.navigate().to('https://www.parallelscore.com/Careers');
+        await driver.navigate().to(navigateToUrl);
 
         //Selects the search criteria: Category as Full-Time
-        var category = await driver.findElement(webdriver.By.css('#category>option[value=full-time]'));
+        var category = await driver.findElement(webdriver.By.css(categoryCssSector));
         category.click();
 
         // Selects the search criteria:  Location as Lagos
-        let location = await driver.findElement(webdriver.By.css('#location>option[value=lagos]'));
+        var location = await driver.findElement(webdriver.By.css(locationCssSector));
         location.click();
 
         //close "Subscribe to our newsletter" model
-        let closeModel = await driver.findElement(webdriver.By.css('div.mc-closeModal'))
+        var closeModel = await driver.findElement(webdriver.By.css(modalCssSelector))
         closeModel.click();
 
         //Search 
-        var search = await driver.findElement(webdriver.By.css('input[type=submit]'))
-        var searchResults = search.click();
+        var search = await driver.findElement(webdriver.By.css(serchCssSelector))
+        search.click();
 
-        try {
-            if (searchResults.isDisplayed()) {
-                console.log("Validation Pass");
-            } else { console.log("Validation Failed"); }
-        } catch (error) {
-            console.log("There was an error: " + error);
-        }
+        //Validate search result
+        //check if lagos and fulltime were actually selected as the search criteria
+        var isLagos = await driver.findElement(webdriver.By.css(locationCssSector));
+        var isFulltime = await driver.findElement(webdriver.By.css(categoryCssSector));
 
+        if (isFulltime.isSelected() && isLagos.isSelected) {
+            console.log("The search result satisfies the search criteria: " + true);
+        } else { console.log("The search result did NOT satisfy the search criteria: " + false); }
     }
-
     catch (err) {
         handleFailure(err, driver)
     }
-
 }
 
 basicTest();
 
-
 function handleFailure(err, driver) {
-    console.error('Something went wrong!\n', err.stack, '\n');
+    console.error('Something went wrong!\n', err.stack, StaleElementReferenceError, '\n');
     driver.quit();
 }
